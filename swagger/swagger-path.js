@@ -25,9 +25,8 @@ module.exports = {
                     schema: {
                         type: "object",
                         properties: {
-                            followedUserId: { type: 'string', example: '5d0374c66d47152fdad7e56c' },
-                            followedName: { type: 'string', example: 'test' },
-                            followedUsername: { type: 'string', example: 'ravi T' }
+                            email: { type: 'string', example: 'abc@gmail.com' },
+                            password: { type: 'string', example: 'test' }
                         }
                     }
                 }

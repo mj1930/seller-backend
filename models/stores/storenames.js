@@ -12,6 +12,6 @@ const StoreSchema = new Schema({
     }
 }, { timestamps: true });
 
-const Stores = mongoose.model('users', StoreSchema);
+const Stores = mongoose.model('storenames', StoreSchema);
 
 module.exports = Stores;
