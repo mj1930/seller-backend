@@ -51,6 +51,7 @@ module.exports = {
                     schema: {
                         type: "object",
                         properties: {
+                            name: { type: 'string', example: 'abc' },
                             mobile: { type: 'string', example: '9876543210' },
                             email: { type: 'string', example: 'abc@gmail.com' },
                             password: { type: 'string', example: 'test' }

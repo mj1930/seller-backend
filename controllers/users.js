@@ -15,8 +15,8 @@ module.exports = {
                 let data = await usersSchema.findOne({
                     email
                 }).lean();
-                let userPassword = await crypto.staticDecrypter(password);
-                if(data.password === userPassword) {
+                let userPassword = await crypto.staticDecrypter(data.password);
+                if(password === userPassword) {
                     const accessToken = await jwtService.generateAccessToken({
                         _id: data._id,
                         name: data.name
@@ -53,24 +53,32 @@ module.exports = {
             let {
                 mobile, name, email, password
             } = await userValidator.signup().validateAsync(req.body);
+            let count = await usersSchema.countDocuments({
+                email
+            });
+            if (count) {
+                return res.json({
+                    code: 200,
+                    message: 'Email already exists !!',
+                    data:{},
+                    error: null
+                }); 
+            }
             mobile = await crypto.staticEncrypter(mobile);
             password = await crypto.staticEncrypter(password);
             let data = new usersSchema({
                 name,
                 mobile,
-                email
+                email,
+                password
             });
             const sellerData = await data.save();
             const accessToken = await jwtService.generateAccessToken({
                 _id: sellerData._id,
                 name: sellerData.name
             });
-
-            pan = await crypto.staticEncrypter(pan);
-            gstin = await crypto.staticEncrypter(gstin);
-            accountNumber = await crypto.staticEncrypter(accountNumber);
             delete sellerData.mobile;
-            if (sellerData && storeData) {
+            if (sellerData) {
                 return res.json({
                     code: 200,
                     message: 'Registration Completed!!',

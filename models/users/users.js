@@ -20,7 +20,7 @@ const UserSchema = new Schema({
     },
     address: {
         type: Object,
-        default: ""
+        default: {}
     },
     hasGST: {
         type: Boolean,
