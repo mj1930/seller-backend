@@ -9,10 +9,10 @@ exports.login = () => {
 
 exports.signup = () => {
     return Joi.object().keys({
+        name: Joi.string().length(10).required().trim(),
         mobile: Joi.string().length(10).required().trim(),
         password: Joi.string().length(10).required().trim(),
-        email: Joi.string().email().required().trim(),
-        
+        email: Joi.string().email().required().trim()
     });
 };
 

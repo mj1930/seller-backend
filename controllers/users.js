@@ -51,11 +51,12 @@ module.exports = {
     signup: async (req, res, next) => {
         try {
             let {
-                mobile, email, password
+                mobile, name, email, password
             } = await userValidator.signup().validateAsync(req.body);
             mobile = await crypto.staticEncrypter(mobile);
             password = await crypto.staticEncrypter(password);
             let data = new usersSchema({
+                name,
                 mobile,
                 email
             });
@@ -101,7 +102,6 @@ module.exports = {
                 _id: userId
             }, {
                 $set: {
-                    name,
                     address,
                     hasGST,
                     taxState,
