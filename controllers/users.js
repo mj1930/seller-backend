@@ -124,10 +124,14 @@ module.exports = {
                 userId: sellerData._id,
                 storename
             });
+            const accessToken = await jwtService.generateAccessToken({
+                _id: sellerData._id,
+                name: sellerData.name
+            });
             if (sellerData && storeData) {
                 return res.json({
                     code: 200,
-                    message: 'Registration Completed!!',
+                    message: 'Details updated !!',
                     data: sellerData,
                     accessToken,
                     error: null
