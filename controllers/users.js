@@ -102,7 +102,7 @@ module.exports = {
     addSellerDetails: async (req, res, next) => {
         try {
             let userId = req.decoded._id;
-            let { address, hasGST, taxState, gstin, pan, accountNumber, accountName, ifscCode, storename } = await userValidator.addSellerDetails().validateAsync(req,body);
+            let { address, hasGST, taxState, gstin, pan, accountNumber, accountName, ifscCode, storename } = await userValidator.addSellerDetails().validateAsync(req.body);
             pan = await crypto.staticEncrypter(pan);
             gstin = await crypto.staticEncrypter(gstin);
             accountNumber = await crypto.staticEncrypter(accountNumber);

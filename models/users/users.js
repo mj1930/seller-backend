@@ -39,7 +39,7 @@ const UserSchema = new Schema({
         default: ""
     },
     accountNumber: {
-        type: Number,
+        type: String,
         default: ""
     },
     accountName: {
