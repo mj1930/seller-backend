@@ -6,6 +6,10 @@ const UserSchema = new Schema({
         type: String,
         default: ''
     },
+    isMobileVerified: {
+        type: Boolean,
+        default: false
+    },
     name: {
         type: String,
         default: ""
@@ -13,6 +17,10 @@ const UserSchema = new Schema({
     email: {
         type: String,
         default: ""
+    },
+    isEmailVerified: {
+        type: Boolean,
+        default: false
     },
     password: {
         type: String,
