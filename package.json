@@ -12,7 +12,7 @@
 		"dev": "nodemon service.js",
 		"start": "node service.js"
 	},
-	"author": "Chingari",
+	"author": "Seller App",
 	"license": "ISC",
 	"dependencies": {
 		"@hapi/joi": "^17.1.1",
@@ -38,6 +38,7 @@
 		"mongoose": "^5.4.19",
 		"morgan": "^1.9.1",
 		"multer-s3": "^2.9.0",
+		"nodemailer": "^6.4.18",
 		"path": "^0.12.7",
 		"swagger-ui-express": "^4.0.7",
 		"twilio": "^3.55.1",
