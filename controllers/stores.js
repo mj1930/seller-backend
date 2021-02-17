@@ -9,6 +9,7 @@ module.exports = {
 
     addSellerDetails: async (req, res, next) => {
         try {
+            console.log(req.files)
             let userId = req.decoded._id;
             let { address, hasGST, taxState, gstin, pan, accountNumber, accountName, ifscCode, storename } = await storeValidator.addSellerDetails().validateAsync(req.body);
             pan = await crypto.staticEncrypter(pan);
