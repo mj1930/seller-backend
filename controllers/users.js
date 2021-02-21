@@ -4,6 +4,7 @@ const storeSchema = require('../models/stores/storenames');
 const userValidator = require('../validators/users.validators');
 const crypto = require('../utils/crypto/Crypto');
 const jwtService = require('../utils/jwt/jwt');
+const { number } = require('@hapi/joi');
 
 module.exports = {
 
@@ -99,6 +100,35 @@ module.exports = {
             }
         } catch (err) {
             next(err)
+        }
+    },
+
+    listAllUsers: async (req, res, next) => {
+        try {
+            let { skip, limit } = await userValidator.listAllUsers().validateAsync(req.body);
+            let usersData = await usersSchema.find({
+                isDeleted: false
+            })
+            .skip(skip)
+            .limit(limit)
+            .lean();
+            if (usersData && usersData.length > 0) {
+                return res.json({
+                    code: 200,
+                    data: usersData,
+                    message: "Found all active users",
+                    error: null
+                });
+            } else {
+                return res.json({
+                    code: 200,
+                    data: {},
+                    message: "No users found !!",
+                    error: null
+                });
+            }
+        } catch (err) {
+            next(err);
         }
     }
 }

@@ -42,7 +42,15 @@ const UserSchema = new Schema({
         type: String,
         default: ""
     },
+    gstImgLink: {
+        type: String,
+        default: ""
+    },
     pan: {
+        type: String,
+        default: ""
+    },
+    panImgLink: {
         type: String,
         default: ""
     },
@@ -54,9 +62,21 @@ const UserSchema = new Schema({
         type: String,
         default: ""
     },
+    cancelChqImg: {
+        type: String,
+        default: ""
+    },
     ifscCode:{
         type: String,
         default: ""
+    },
+    isActive: {
+        type: Boolean,
+        default: false
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true });
 

@@ -68,7 +68,7 @@ module.exports = {
             }).lean();
             return res.json({
                 code: 200,
-                data: all,
+                data: allProducts,
                 message: "all product fetched successfully!!",
                 error: null
             });

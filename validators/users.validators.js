@@ -16,3 +16,10 @@ exports.signup = () => {
     });
 };
 
+exports.listAllUsers = () => {
+    return Joi.object().keys({
+        skip: Joi.number().required(),
+        limit: Joi.number().required()
+    });
+}
+

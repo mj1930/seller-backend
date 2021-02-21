@@ -7,26 +7,61 @@ const jwtService = require('../utils/jwt/jwt');
 
 module.exports = {
 
-    addSellerDetails: async (req, res, next) => {
+    addSellerGstDetails: async (req, res, next) => {
         try {
-            console.log(req.files)
             let userId = req.decoded._id;
-            let { address, hasGST, taxState, gstin, pan, accountNumber, accountName, ifscCode, storename } = await storeValidator.addSellerDetails().validateAsync(req.body);
+            let gstImgLink = req.files[0];
+            let panImgLink = req.files[1];
+            let { name, hasGST, taxState, gstin, pan } = await storeValidator.addSellerGstDetails().validateAsync(req.body);
             pan = await crypto.staticEncrypter(pan);
             gstin = await crypto.staticEncrypter(gstin);
-            accountNumber = await crypto.staticEncrypter(accountNumber);
             const sellerData = await usersSchema.findOneAndUpdate({
                 _id: userId
             }, {
                 $set: {
-                    address,
+                    name,
                     hasGST,
                     taxState,
                     gstin,
                     pan,
-                    accountNumber,
-                    accountName,
-                    ifscCode
+                    gstImgLink,
+                    panImgLink
+                }
+            }, {new : true});
+            const accessToken = await jwtService.generateAccessToken({
+                _id: sellerData._id,
+                name: sellerData.name
+            });
+            if (sellerData) {
+                return res.json({
+                    code: 200,
+                    message: 'Details updated !!',
+                    data: sellerData,
+                    accessToken,
+                    error: null
+                });
+            } else {
+                return res.json({ 
+                    code: 400,
+                    data: {},
+                    messgae: "Something Error!! Not created successfully.", 
+                    error: null 
+                });
+            }
+        } catch (err) {
+            next(err)
+        }
+    },
+
+    addSellerAddressDetails : async (req, res, next) => {
+        try {
+            let userId = req.decoded._id;
+            let { storename, address } = await storeValidator.addSellerAddressDetails().validateAsync(req.body);
+            const sellerData = await usersSchema.findOneAndUpdate({
+                _id: userId
+            }, {
+                $set: {
+                    address
                 }
             }, {new : true});
             const storeData = await storeSchema.create({
@@ -54,7 +89,44 @@ module.exports = {
                 });
             }
         } catch (err) {
-            next(err)
+            next (err);
+        }
+    },
+
+    addSellerBankDetails : async (req, res, next) => {
+        try {
+            let userId = req.decoded._id;
+            let cancelChqImg = req.files[0];
+            let { accountNumber, accountName, ifscCode } = await storeValidator.addSellerAddressDetails().validateAsync(req.body);
+            accountNumber = await crypto.staticEncrypter(accountNumber);
+            const sellerData = await usersSchema.findOneAndUpdate({
+                _id: userId
+            }, {
+                $set: {
+                    accountNumber,
+                    accountName,
+                    ifscCode,
+                    cancelChqImg
+                }
+            }, {new : true});
+            if (sellerData) {
+                return res.json({
+                    code: 200,
+                    message: 'Details updated !!',
+                    data: sellerData,
+                    accessToken,
+                    error: null
+                });
+            } else {
+                return res.json({ 
+                    code: 400,
+                    data: {},
+                    messgae: "Something Error!! Not created successfully.", 
+                    error: null 
+                });
+            }
+        } catch (err) {
+            next (err);
         }
     },
 
