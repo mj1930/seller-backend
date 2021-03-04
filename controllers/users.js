@@ -1,10 +1,8 @@
 const usersSchema = require('../models/users/users');
-const storeSchema = require('../models/stores/storenames');
 
 const userValidator = require('../validators/users.validators');
 const crypto = require('../utils/crypto/Crypto');
 const jwtService = require('../utils/jwt/jwt');
-const { number } = require('@hapi/joi');
 
 module.exports = {
 
@@ -124,6 +122,34 @@ module.exports = {
                     code: 200,
                     data: {},
                     message: "No users found !!",
+                    error: null
+                });
+            }
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    getUserData: async (req, res, next) => {
+        try {
+            let userId = req.decoded._id;
+            let userData = await usersSchema.findOne({
+                _id: userId
+            }).lean();
+            if (userData) {
+                return res.json({
+                    code: 200,
+                    message: 'User profile data found !!',
+                    data: userData,
+                    accessToken,
+                    error: null
+                });
+            } else {
+                return res.json({
+                    code: 400,
+                    message: 'No user found !!',
+                    data: {},
+                    accessToken,
                     error: null
                 });
             }
