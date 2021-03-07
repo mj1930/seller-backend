@@ -10,8 +10,8 @@ module.exports = {
     addSellerGstDetails: async (req, res, next) => {
         try {
             let userId = req.decoded._id;
-            let gstImgLink = req.files[0];
-            let panImgLink = req.files[1];
+            let gstImgLink = req.files ? req.files[0] : '';
+            let panImgLink = req.files ? req.files[1] : '';
             let { name, hasGST, taxState, gstin, pan } = await storeValidator.addSellerGstDetails().validateAsync(req.body);
             pan = await crypto.staticEncrypter(pan);
             gstin = await crypto.staticEncrypter(gstin);
@@ -96,8 +96,8 @@ module.exports = {
     addSellerBankDetails : async (req, res, next) => {
         try {
             let userId = req.decoded._id;
-            let cancelChqImg = req.files[0];
-            let { accountNumber, accountName, ifscCode } = await storeValidator.addSellerAddressDetails().validateAsync(req.body);
+            let cancelChqImg = req.files ? req.files[0] : '';
+            let { accountNumber, accountName, ifscCode } = await storeValidator.addSellerBankDetails().validateAsync(req.body);
             accountNumber = await crypto.staticEncrypter(accountNumber);
             const sellerData = await usersSchema.findOneAndUpdate({
                 _id: userId
@@ -109,6 +109,10 @@ module.exports = {
                     cancelChqImg
                 }
             }, {new : true});
+            const accessToken = await jwtService.generateAccessToken({
+                _id: sellerData._id,
+                name: sellerData.name
+            });
             if (sellerData) {
                 return res.json({
                     code: 200,

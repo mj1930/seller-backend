@@ -6,7 +6,7 @@ exports.addProduct = () => {
         itemName: Joi.string().required().trim(),
         countryOfOrigin: Joi.string().required().trim(),
         manufacturer: Joi.string().required().trim(),
-        itemsNum: Joi.number().required().trim(),
+        itemsNum: Joi.number().required(),
         colorName: Joi.string().required().trim(),
         includedComponents: Joi.string().required().trim(),
         exclosureMaterial: Joi.string().required().trim(),
@@ -14,7 +14,7 @@ exports.addProduct = () => {
         sizeMap: Joi.string().required().trim(),
         manufacturerContact: Joi.string().required().trim(),
         productDimensions:Joi.object().required(),
-        unitCount: Joi.number().required().trim(),
-        unitCountType: Joi.number().required().trim()
+        unitCount: Joi.number().required(),
+        unitCountType: Joi.number().required()
     });
 }

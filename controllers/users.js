@@ -1,4 +1,5 @@
 const usersSchema = require('../models/users/users');
+const storeSchema = require('../models/stores/storenames');
 
 const userValidator = require('../validators/users.validators');
 const crypto = require('../utils/crypto/Crypto');
@@ -80,6 +81,7 @@ module.exports = {
                 name: sellerData.name
             });
             delete sellerData.mobile;
+            delete sellerData.password;
             if (sellerData) {
                 return res.json({
                     code: 200,
@@ -136,6 +138,19 @@ module.exports = {
             let userData = await usersSchema.findOne({
                 _id: userId
             }).lean();
+            userData.mobile = await crypto.staticDecrypter(userData.mobile);
+            userData.accountNumber = await crypto.staticDecrypter(userData.accountNumber);
+            userData.gstin = await crypto.staticDecrypter(userData.gstin);
+            userData.pan = await crypto.staticDecrypter(userData.pan);
+            let storeData = await storeSchema.findOne({
+                userId
+            }).lean();
+            userData['storeName'] = storeData.storename;
+            delete userData.password;
+            const accessToken = await jwtService.generateAccessToken({
+                _id: userData._id,
+                name: userData.name
+            });
             if (userData) {
                 return res.json({
                     code: 200,

@@ -13,7 +13,6 @@ const s3 = new _AWS.S3({
 exports.upload = multer({
     storage: multerS3({
         s3: s3,
-        // queueSize: 1,
         ACL: 'public-read',
         bucket: process.env.BUCKET_NAME,
         contentType: multerS3.AUTO_CONTENT_TYPE,

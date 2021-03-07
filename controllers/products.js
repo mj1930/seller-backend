@@ -32,7 +32,7 @@ module.exports = {
                     error: null
                 });
             }
-            const productData = await productSchema.save({
+            const productData = await productSchema.create({
                 productId,
                 itemName,
                 countryOfOrigin,
