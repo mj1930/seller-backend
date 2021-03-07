@@ -63,9 +63,18 @@ module.exports = {
 
     listAllProduct: async (req, res, next) => {
         try {
-            let allProducts = await productSchema.find({
-                isDeleted: false
-            }).lean();
+            let allProducts = [];
+            let status = req.query.status;
+            if (status) {
+                allProducts = await productSchema.find({
+                    isDeleted: false,
+                    isApproved: status
+                }).lean();
+            } else {
+                allProducts = await productSchema.find({
+                    isDeleted: false
+                }).lean();
+            }
             return res.json({
                 code: 200,
                 data: allProducts,
