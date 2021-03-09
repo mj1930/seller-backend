@@ -83,8 +83,8 @@ module.exports = {
                 from: process.env.senderMail,
                 to: email,
                 subject: 'Verification email',
-                html: `<h1>Please copy the link below to verify your mail.</h1>
-                        <p>${process.env.SELLER_URL}email-verification</p>`
+                html: `<h1>Please click on the link below to verify your mail.</h1>
+                        <p>${process.env.SELLER_URL}/seller/email-verification</p>`
             };
             transporter.sendMail(message, (err, info) => {
                 if (err) return next(err);
