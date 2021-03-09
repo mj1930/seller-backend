@@ -64,17 +64,35 @@ module.exports = {
     listAllProduct: async (req, res, next) => {
         try {
             let allProducts = [];
-            let status = req.query.status;
-            if (status) {
-                allProducts = await productSchema.find({
-                    isDeleted: false,
-                    isApproved: status
-                }).lean();
-            } else {
-                allProducts = await productSchema.find({
-                    isDeleted: false
-                }).lean();
-            }
+            let { skip, limit } = await productValidator.listAllProducts().validateAsync(req.body);
+            allProducts = await productSchema.find({
+                isDeleted: false
+            })
+            .skip(skip)
+            .limit(limit)
+            .lean();
+            return res.json({
+                code: 200,
+                data: allProducts,
+                message: "all product fetched successfully!!",
+                error: null
+            });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    filterProducts: async (req, res, next) => {
+        try {
+            let allProducts = [];
+            let { skip, limit, status } = await productValidator.filterProducts().validateAsync(req.body);
+            allProducts = await productSchema.find({
+                isDeleted: false,
+                isApproved: status
+            })
+            .skip(skip)
+            .limit(limit)
+            .lean();
             return res.json({
                 code: 200,
                 data: allProducts,
