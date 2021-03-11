@@ -10,6 +10,6 @@ router.post('/add-product-images', authorize, upload.array('file', 2), productCt
 router.post('/add-product-desc-info', authorize, productCtrl.addProductDesc);
 router.post('/get-all-products', authorize, productCtrl.listAllProduct);
 router.post('/filter-products', authorize, productCtrl.filterProducts);
-router.get('/search-products/:term', authorize, productCtrl.searchFromProducts);
+router.get('/search-products', authorize, productCtrl.searchFromProducts);
 
 module.exports = router;

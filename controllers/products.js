@@ -233,9 +233,11 @@ module.exports = {
         try {
             let { term } = await productValidator.searchProduct().validateAsync(req.query);
             let searchedProducts = await productSchema.find({
-                itemName: { $regex: new RegExp(term, 'i') },
-                barcode:  { $regex: new RegExp(term, 'i') }
-            });
+                $or: [
+                    {itemName: { $regex: new RegExp(term, 'i') }},
+                    { barcode:  { $regex: new RegExp(term, 'i') }}
+                ]
+            }).lean();
             if (searchedProducts && searchedProducts.length > 0) {
                 return res.json({
                     code: 200,

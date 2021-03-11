@@ -93,6 +93,9 @@ const productSchema = new Schema({
     }
 }, { timestamps: true});
 
+
+productSchema.index({ itemName: 1 });
+productSchema.index({ barcode: 1 });
 const Products = mongoose.model('products', productSchema);
 
 module.exports = Products;
