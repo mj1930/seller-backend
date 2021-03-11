@@ -2,11 +2,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
-    productId: {
+    barcode: {
         type: String,
         default: ""
     },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'users',
+        default: null
+    },
     itemName: {
+        type: String,
+        default: ""
+    },
+    city: {
         type: String,
         default: ""
     },
@@ -14,49 +23,61 @@ const productSchema = new Schema({
         type: String,
         default: ""
     },
-    manufacturer: {
+    brand: {
         type: String,
         default: ""
     },
-    itemsNum: {
-        type: Number,
-        default: 0
-    },
-    colorName: {
+    modelNumber: {
         type: String,
         default: ""
     },
-    includedComponents: {
+    dimensions: {
         type: String,
         default: ""
     },
-    exclosureMaterial: {
+    productImg: {
+        type: Array,
+        default: []
+    },
+    weight: {
         type: String,
         default: ""
     },
-    itemTypeName: {
+    color: {
         type: String,
         default: ""
     },
-    sizeMap: {
+    size: {
         type: String,
         default: ""
     },
-    manufacturerContact: {
+    productPrice: {
         type: String,
         default: ""
-    },
-    productDimensions: {
-        type: Object,
-        default: {}
     },
     unitCount: {
-        type: Number,
-        default: 0
+        type: String,
+        default: ""
     },
-    unitCountType: {
-        type: Number,
-        default: 0
+    mrp: {
+        type: String,
+        default: ""
+    },
+    description: {
+        type: String,
+        default: ""
+    },
+    categoryId: {
+        type: Schema.Types.ObjectId,
+        ref: 'category'
+    },
+    subCategoryId: {
+        type: Schema.Types.ObjectId,
+        ref: 'subCategory'
+    },
+    heading: {
+        type: String,
+        default: ""
     },
     isApproved: {
         type: Boolean,
