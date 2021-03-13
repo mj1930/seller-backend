@@ -16,8 +16,8 @@ exports.addProduct = () => {
 };
 exports.addVariation = () => {
     return Joi.object().keys({
-        color: Joi.array().required().trim(),
-        size: Joi.array().required().trim(),
+        color: Joi.array().required(),
+        size: Joi.array().required(),
         id: Joi.string().required().trim()
     });
 };
