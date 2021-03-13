@@ -7,17 +7,17 @@ exports.addProduct = () => {
         city: Joi.string().required().trim(),
         countryOfOrigin: Joi.string().required().trim(),
         brand: Joi.string().required().trim(),
-        modelNumber: Joi.string().required().trim(),
-        dimensions: Joi.string().required(),
+        dimensions: Joi.object().required(),
         weight: Joi.string().required().trim(),
         categoryId: Joi.string().required().trim(),
-        subCategoryId: Joi.string().required().trim()
+        subCategoryId: Joi.string().required().trim(),
+        availableUnits: Joi.number().required()
     });
 };
 exports.addVariation = () => {
     return Joi.object().keys({
-        color: Joi.string().required().trim(),
-        size: Joi.string().required().trim(),
+        color: Joi.array().required().trim(),
+        size: Joi.array().required().trim(),
         id: Joi.string().required().trim()
     });
 };

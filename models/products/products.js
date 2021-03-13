@@ -27,13 +27,22 @@ const productSchema = new Schema({
         type: String,
         default: ""
     },
-    modelNumber: {
-        type: String,
-        default: ""
-    },
     dimensions: {
-        type: String,
-        default: ""
+        type: Object,
+        default: {
+            length: {
+                type: Number,
+                default: 0
+            },
+            breadth: {
+                type: Number,
+                default: 0
+            },
+            height: {
+                type: Number,
+                default: 0
+            }
+        }
     },
     productImg: {
         type: Array,
@@ -44,19 +53,23 @@ const productSchema = new Schema({
         default: ""
     },
     color: {
-        type: String,
-        default: ""
+        type: Array,
+        default: []
     },
     size: {
-        type: String,
-        default: ""
+        type: Array,
+        default: []
     },
     productPrice: {
         type: String,
         default: ""
     },
+    availableUnits: {
+        type: Number,
+        default: ""
+    },
     unitCount: {
-        type: String,
+        type: Number,
         default: ""
     },
     mrp: {

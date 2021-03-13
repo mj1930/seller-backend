@@ -9,7 +9,7 @@ module.exports = {
         try {
             let {
                 barcode, itemName, city, countryOfOrigin,
-                brand, modelNumber, dimensions,
+                brand, availableUnits, dimensions,
                 weight, categoryId, subCategoryId
             } = await productValidator.addProduct().validateAsync(req.body);
             let userId = req.decoded._id;
@@ -28,7 +28,7 @@ module.exports = {
                 itemName,
                 city,
                 countryOfOrigin,
-                modelNumber,
+                availableUnits,
                 dimensions,
                 brand,
                 weight,
