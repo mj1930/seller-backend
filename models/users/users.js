@@ -80,6 +80,6 @@ const UserSchema = new Schema({
     }
 }, { timestamps: true });
 
-const Users = mongoose.model('users', UserSchema);
+const Users = mongoose.model('sellers', UserSchema);
 
 module.exports = Users;

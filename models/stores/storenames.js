@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const StoreSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'sellers',
+        default: null
     },
     storename: {
         type: String,

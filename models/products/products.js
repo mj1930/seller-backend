@@ -8,7 +8,7 @@ const productSchema = new Schema({
     },
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'users',
+        ref: 'sellers',
         default: null
     },
     itemName: {
@@ -93,7 +93,7 @@ const productSchema = new Schema({
     }
 }, { timestamps: true});
 
-
+productSchema.index({ city: 1 });
 productSchema.index({ itemName: 1 });
 productSchema.index({ barcode: 1 });
 const Products = mongoose.model('products', productSchema);

@@ -58,4 +58,4 @@ exports.filterProducts = () => {
         limit: Joi.number().required(),
         status: Joi.boolean().required()
     });
-}
+};
