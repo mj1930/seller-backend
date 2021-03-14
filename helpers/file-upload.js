@@ -13,7 +13,7 @@ const s3 = new _AWS.S3({
 exports.upload = multer({
     storage: multerS3({
         s3: s3,
-        ACL: 'public-read',
+        acl: 'public-read',
         bucket: process.env.BUCKET_NAME,
         contentType: multerS3.AUTO_CONTENT_TYPE,
         key: function (req, file, callback) {
