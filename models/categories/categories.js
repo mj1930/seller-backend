@@ -13,6 +13,10 @@ const categorySchema = new Schema({
     isDeleted: {
         type: Boolean,
         default: false
+    },
+    img: {
+        type: String,
+        default: "" 
     }
 }, { timestamps: true});
 
