@@ -65,7 +65,7 @@ const orderSchema = new Schema({
     },
     orderStatus: {
         type: String,
-        default: 'P' // P - pending, D-dispatched, RF- refunded, C- cancelled, RT- returned
+        default: 'P' // P - pending, D-dispatched, RF- refunded, C- cancelled, RT- returned, DL-Delivered
     }
 }, {timestamps: true});
 

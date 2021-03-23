@@ -14,3 +14,10 @@ exports.listOrder = () => {
         limit: Joi.number().required().trim()
     });
 };
+
+exports.getOrderByDate = () => {
+    return Joi.object().keys({
+        startDate: Joi.string().required().trim(),
+        endDate: Joi.string().required().trim()
+    });
+};

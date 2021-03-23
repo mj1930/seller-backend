@@ -45,5 +45,30 @@ module.exports = {
         } catch (err) {
             next(err);
         }
+    },
+
+    getOrdersByDate: async (req, res, next) => {
+        try {
+            let userId = req.decoded._id;
+            let { startDate, endDate } = await orderValidator.getOrderByDate().validateAsync(req.body);
+            let ordersData = await orderSchema.find({
+                $and: [
+                    {
+                        _id: userId
+                    },
+                    {
+                        orderStatus: 'DL'
+                    },
+                    {
+                        createdAt: {
+                            $gte: startDate,
+                            $lte: endDate
+                        }
+                    }
+                ]
+            }).lean();
+        } catch (err) {
+            next(err);
+        }
     }
 }
