@@ -4,35 +4,13 @@ const orderValidator = require('../validators/orders.validators');
 
 module.exports = {
 
-    addOrder: async (req, res, next) => {
-        try {
-            let { mode, products, userId, totalAmnt, 
-                address, userGstin, businessName, paymentMode } = await orderValidator.addOrder().validateAsync(req.body);
-            let orderData = await orderSchema.create({
-                mode,
-                products,
-                userId,
-                totalAmnt,
-                address,
-                userGstin,
-                businessName,
-                paymentMode
-            });
-            return res.json({
-                code: 200,
-                data: orderData,
-                message: 'Order placed successfully',
-                error: null
-            });
-        } catch (err) {
-            next(err);
-        }
-    },
-
     listOrders: async (req, res, next) => {
         try {
+            let userId = req.decoded._id;
             let { skip, limit } = await orderValidator.listOrders().validateAsync(req.body);
-            let orders = await orderSchema.find({})
+            let orders = await orderSchema.find({
+                _id: userId
+            })
             .skip(skip)
             .limit(limit)
             .lean();
@@ -49,8 +27,10 @@ module.exports = {
 
     filterProducts: async (req, res, next) => {
         try {
+            let userId = req.decoded._id;
             let { skip, limit, status } = await orderValidator.filterOrders().validateAsync(req.body);
             let orders = await orderSchema.find({
+                _id: userId,
                 orderStatus: status
             })
             .skip(skip)
