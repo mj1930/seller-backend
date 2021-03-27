@@ -25,7 +25,7 @@ module.exports = {
         }
     },
 
-    filterProducts: async (req, res, next) => {
+    filterOrders: async (req, res, next) => {
         try {
             let userId = req.decoded._id;
             let { skip, limit, status } = await orderValidator.filterOrders().validateAsync(req.body);
