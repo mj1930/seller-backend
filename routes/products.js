@@ -11,5 +11,6 @@ router.post('/add-product-desc-info', authorize, productCtrl.addProductDesc);
 router.post('/get-all-products', productCtrl.listAllProduct);
 router.post('/filter-products', productCtrl.filterProducts);
 router.get('/search-products', productCtrl.searchFromProducts);
+router.get('/get-product-details/:productId', productCtrl.getProductDetails);
 
 module.exports = router;

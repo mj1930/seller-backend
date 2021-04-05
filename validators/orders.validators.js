@@ -21,3 +21,10 @@ exports.getOrderByDate = () => {
         endDate: Joi.string().required().trim()
     });
 };
+
+exports.updateOrder = () => {
+    return Joi.object().keys({
+        orderId: Joi.string().required().trim(),
+        status: Joi.string().required().trim()
+    });
+};

@@ -59,3 +59,9 @@ exports.filterProducts = () => {
         status: Joi.boolean().required()
     });
 };
+
+exports.getProductDetails = () => {
+    return Joi.object().keys({
+        productId: Joi.string().required().trim()
+    })
+}

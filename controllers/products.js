@@ -256,5 +256,22 @@ module.exports = {
         } catch (err) {
             next(err);
         }
+    },
+
+    getProductDetails: async (req, res, next) => {
+        try {
+            let { productId } = await productValidator.getProductDetails().validateAsync(req.params);
+            let productData = await productSchema.findOne({
+                _id: productId
+            }).lean();
+            return res.json({
+                code: 200,
+                data: productData,
+                message: "Product data found",
+                error: null
+            });
+        } catch(err) {
+            next(err);
+        }
     }
 }
