@@ -20,7 +20,7 @@ module.exports = (app, express) => {
         extended: true
     }));
     app.use(cookieParser());
-    app.use(express.static(path.join(__rootDir, "seller-frontend")));
+    app.use(express.static(path.join(__rootDir, "public")));
     app.use('/api-docs',
         swaggerUi.serve,
         (req, res, next) => {
