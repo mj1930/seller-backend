@@ -188,10 +188,18 @@ module.exports = {
 
     listAllProduct: async (req, res, next) => {
         try {
+            let userId = req.decoded._id;
             let allProducts = [];
             let { skip, limit } = await productValidator.listAllProducts().validateAsync(req.body);
             allProducts = await productSchema.find({
-                isDeleted: false
+                $and: [
+                    {
+                        userId
+                    },
+                    {
+                        isDeleted: false
+                    }
+                ]
             })
             .skip(skip)
             .limit(limit)
