@@ -215,6 +215,22 @@ module.exports = {
         }
     },
 
+    listAllProductAdmin: async (req, res, next) => {
+        try {
+            let allProducts = await productSchema.find({
+                isDeleted: false
+            }).lean();
+            return res.json({
+                code: 200,
+                data: allProducts,
+                message: "all product fetched successfully!!",
+                error: null
+            });
+        } catch (err) {
+            next(err);
+        }
+    },
+
     filterProducts: async (req, res, next) => {
         try {
             let allProducts = [];
