@@ -61,7 +61,7 @@ module.exports = {
             });
             if (count) {
                 return res.json({
-                    code: 200,
+                    code: 400,
                     message: 'Email already exists !!',
                     data:{},
                     error: null
