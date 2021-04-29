@@ -14,6 +14,7 @@ exports.addProduct = () => {
         availableUnits: Joi.number().required()
     });
 };
+
 exports.addVariation = () => {
     return Joi.object().keys({
         color: Joi.array().required(),
@@ -64,4 +65,28 @@ exports.getProductDetails = () => {
     return Joi.object().keys({
         productId: Joi.string().required().trim()
     })
+}
+
+exports.addProductNew = () => {
+    return Joi.object().keys({
+        barcode: Joi.string().required().trim(),
+        hsn: Joi.string().required().trim(),
+        model: Joi.string().required().trim(),
+        itemName: Joi.string().required().trim(),
+        city: Joi.string().required().trim(),
+        countryOfOrigin: Joi.string().required().trim(),
+        brand: Joi.string().required().trim(),
+        dimensions: Joi.object().required(),
+        weight: Joi.string().required().trim(),
+        categoryId: Joi.string().required().trim(),
+        subCategoryId: Joi.string().required().trim(),
+        color: Joi.array().required(),
+        size: Joi.array().required(),
+        productPrice: Joi.string().required().trim(),
+        unitCount: Joi.number().required(),
+        mrp: Joi.string().required().trim(),
+        description: Joi.string().required().trim(),
+        heading: Joi.string().required().trim(),
+        availableUnits: Joi.number().required()
+    });
 }

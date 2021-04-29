@@ -100,6 +100,14 @@ const productSchema = new Schema({
         type: String,
         default: ""
     },
+    hsn: {
+        type: String,
+        default: ""
+    },
+    model: {
+        type: String,
+        default: ""
+    },
     isDeleted: {
         type: Boolean,
         default: false

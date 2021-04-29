@@ -297,5 +297,61 @@ module.exports = {
         } catch(err) {
             next(err);
         }
+    },
+
+    addProductNew: async (req, res, next) => {
+        try {
+            let files = req.files ? _.pluck(req.files, 'location') : [];
+            let {
+                barcode, itemName, city, countryOfOrigin,
+                brand, availableUnits, dimensions,
+                weight, categoryId, subCategoryId, color,
+                size, productPrice, unitCount, mrp, description,
+                heading, hsn, model
+            } = await productValidator.addProductNew().validateAsync(req.body);
+            let userId = req.decoded._id;
+            let isProductPresent = await productSchema.countDocuments({ itemName, barcode});
+            if (isProductPresent) {
+                return res.json({
+                    code: 200,
+                    data: {},
+                    message: "product with details already present!!!",
+                    error: null
+                });
+            }
+            const productData = await productSchema.create({
+                barcode,
+                userId,
+                hsn,
+                model,
+                itemName,
+                city,
+                countryOfOrigin,
+                availableUnits,
+                dimensions,
+                brand,
+                weight,
+                categoryId,
+                subCategoryId,
+                color,
+                size,
+                productPrice,
+                unitCount,
+                mrp,
+                description,
+                productImg: files,
+                heading
+            });
+            if (productData) {
+                return res.json({
+                    code: 200,
+                    data: productData,
+                    message: "product added successfully!!",
+                    error: null
+                });
+            }
+        } catch (err) {
+            next(err);
+        }
     }
 }
