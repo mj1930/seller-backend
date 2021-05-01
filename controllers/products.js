@@ -201,6 +201,7 @@ module.exports = {
                     }
                 ]
             })
+            .sort({ createdAt: -1})
             .skip(skip)
             .limit(limit)
             .lean();
@@ -308,7 +309,7 @@ module.exports = {
                 barcode, itemName, city, countryOfOrigin,
                 brand, availableUnits, dimensions,
                 weight, categoryId, subCategoryId, color,
-                size, productPrice, unitCount, mrp, description,
+                size, productPrice, mrp, description,
                 heading, hsn, model
             } = await productValidator.addProductNew().validateAsync(req.body);
             let userId = req.decoded._id;
@@ -338,7 +339,6 @@ module.exports = {
                 color,
                 size,
                 productPrice,
-                unitCount,
                 mrp,
                 description,
                 productImg: files,
