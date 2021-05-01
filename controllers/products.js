@@ -219,6 +219,8 @@ module.exports = {
         try {
             let allProducts = await productSchema.find({
                 isDeleted: false
+            }).sort({
+                createdAt: -1
             }).lean();
             return res.json({
                 code: 200,

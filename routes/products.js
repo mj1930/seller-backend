@@ -13,6 +13,6 @@ router.post('/get-all-products-admin', authorize, productCtrl.listAllProductAdmi
 router.post('/filter-products', productCtrl.filterProducts);
 router.get('/search-products', productCtrl.searchFromProducts);
 router.get('/get-product-details/:productId', productCtrl.getProductDetails);
-router.get('/v2/add-product', authorize, upload.array('productImage', 5), productCtrl.addProductNew);
+router.post('/v2/add-product', authorize, upload.array('productImage', 5), productCtrl.addProductNew);
 
 module.exports = router;
