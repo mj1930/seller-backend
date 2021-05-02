@@ -13,7 +13,9 @@ module.exports = (app, express) => {
     app.use(compression());
     app.use(helmet());
     app.use(cors());
-    app.use(bodyParser.json());
+    app.use(bodyParser.json({
+        limit: '50mb'
+    }));
     app.use(bodyParser.urlencoded({
         parameterLimit: 100000,
         limit: "50mb",

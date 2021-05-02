@@ -80,12 +80,13 @@ exports.addProductNew = () => {
         weight: Joi.string().required().trim(),
         categoryId: Joi.string().required().trim(),
         subCategoryId: Joi.string().required().trim(),
-        color: Joi.array().required(),
-        size: Joi.array().required(),
-        productPrice: Joi.string().required().trim(),
-        mrp: Joi.string().required().trim(),
-        description: Joi.string().required().trim(),
-        heading: Joi.string().required().trim(),
+        color: Joi.array().optional().allow(''),
+        size: Joi.array().optional().allow(''),
+        productImage: Joi.array().optional().allow(''),
+        productPrice: Joi.string().optional().allow('').trim(),
+        mrp: Joi.string().optional().allow('').trim(),
+        description: Joi.string().optional().allow('').trim(),
+        heading: Joi.string().optional().allow('').trim(),
         availableUnits: Joi.number().required()
     });
 }

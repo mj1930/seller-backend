@@ -139,13 +139,17 @@ module.exports = {
                 _id: userId
             }).lean();
             userData.mobile = await crypto.staticDecrypter(userData.mobile);
-            userData.accountNumber = await crypto.staticDecrypter(userData.accountNumber);
-            userData.gstin = await crypto.staticDecrypter(userData.gstin);
-            userData.pan = await crypto.staticDecrypter(userData.pan);
+            if (userData.accountNumber)
+                userData.accountNumber = await crypto.staticDecrypter(userData.accountNumber);
+            if (userData.gstin)
+                userData.gstin = await crypto.staticDecrypter(userData.gstin);
+            if (userData.pan)
+                userData.pan = await crypto.staticDecrypter(userData.pan);
             let storeData = await storeSchema.findOne({
                 userId
             }).lean();
-            userData['storeName'] = storeData.storename;
+            if (storeData)
+                userData['storeName'] = storeData.storename;
             delete userData.password;
             const accessToken = await jwtService.generateAccessToken({
                 _id: userData._id,

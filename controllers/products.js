@@ -313,7 +313,7 @@ module.exports = {
                 heading, hsn, model
             } = await productValidator.addProductNew().validateAsync(req.body);
             let userId = req.decoded._id;
-            let isProductPresent = await productSchema.countDocuments({ itemName, barcode});
+            let isProductPresent = await productSchema.countDocuments({_id: userId, itemName, barcode});
             if (isProductPresent) {
                 return res.json({
                     code: 200,
