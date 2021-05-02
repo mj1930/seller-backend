@@ -167,7 +167,7 @@ module.exports = {
     addProductImages: async (req, res, next) => {
         try {
             let files = req.files ? _.pluck(req.files, 'location') : [];
-            let id = req.body.id;
+            let id = req.body.productId;
             let imagesData = await productSchema.findOneAndUpdate({
                 _id: id
             }, {
@@ -304,7 +304,6 @@ module.exports = {
 
     addProductNew: async (req, res, next) => {
         try {
-            let files = req.files ? _.pluck(req.files, 'location') : [];
             let {
                 barcode, itemName, city, countryOfOrigin,
                 brand, availableUnits, dimensions,
@@ -341,8 +340,65 @@ module.exports = {
                 productPrice,
                 mrp,
                 description,
-                productImg: files,
                 heading
+            });
+            if (productData) {
+                return res.json({
+                    code: 200,
+                    data: productData,
+                    message: "product added successfully!!",
+                    error: null
+                });
+            }
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    editProductNew: async (req, res, next) => {
+        try {
+            let {
+                productId, barcode, itemName, city, countryOfOrigin,
+                brand, availableUnits, dimensions,
+                weight, categoryId, subCategoryId, color,
+                size, productPrice, mrp, description,
+                heading, hsn, model
+            } = await productValidator.editProductNew().validateAsync(req.body);
+            let userId = req.decoded._id;
+            let isProductPresent = await productSchema.countDocuments({_id: userId, itemName, barcode});
+            if (isProductPresent) {
+                return res.json({
+                    code: 200,
+                    data: {},
+                    message: "product with details already present!!!",
+                    error: null
+                });
+            }
+            const productData = await productSchema.findOneAndUpdate({
+                _id: productId
+            },
+            {
+                $set: {
+                    barcode,
+                    userId,
+                    hsn,
+                    model,
+                    itemName,
+                    city,
+                    countryOfOrigin,
+                    availableUnits,
+                    dimensions,
+                    brand,
+                    weight,
+                    categoryId,
+                    subCategoryId,
+                    color,
+                    size,
+                    productPrice,
+                    mrp,
+                    description,
+                    heading
+                }    
             });
             if (productData) {
                 return res.json({

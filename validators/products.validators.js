@@ -82,7 +82,30 @@ exports.addProductNew = () => {
         subCategoryId: Joi.string().required().trim(),
         color: Joi.array().optional().allow(''),
         size: Joi.array().optional().allow(''),
-        productImage: Joi.array().optional().allow(''),
+        productPrice: Joi.string().optional().allow('').trim(),
+        mrp: Joi.string().optional().allow('').trim(),
+        description: Joi.string().optional().allow('').trim(),
+        heading: Joi.string().optional().allow('').trim(),
+        availableUnits: Joi.number().required()
+    });
+};
+
+exports.editProductNew = () => {
+    return Joi.object().keys({
+        productId: Joi.string().required().trim(),
+        barcode: Joi.string().required().trim(),
+        hsn: Joi.string().required().trim(),
+        model: Joi.string().required().allow('').trim(),
+        itemName: Joi.string().required().trim(),
+        city: Joi.string().required().trim(),
+        countryOfOrigin: Joi.string().required().trim(),
+        brand: Joi.string().required().trim(),
+        dimensions: Joi.object().required(),
+        weight: Joi.string().required().trim(),
+        categoryId: Joi.string().required().trim(),
+        subCategoryId: Joi.string().required().trim(),
+        color: Joi.array().optional().allow(''),
+        size: Joi.array().optional().allow(''),
         productPrice: Joi.string().optional().allow('').trim(),
         mrp: Joi.string().optional().allow('').trim(),
         description: Joi.string().optional().allow('').trim(),
