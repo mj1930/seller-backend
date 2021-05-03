@@ -15,5 +15,6 @@ router.get('/search-products', productCtrl.searchFromProducts);
 router.get('/get-product-details/:productId', productCtrl.getProductDetails);
 router.post('/v2/add-product', authorize, productCtrl.addProductNew);
 router.post('/edit-product', authorize, productCtrl.editProductNew);
+router.post('/update-product-price', authorize, productCtrl.updateProductPrice);
 
 module.exports = router;

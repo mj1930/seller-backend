@@ -411,5 +411,28 @@ module.exports = {
         } catch (err) {
             next(err);
         }
+    },
+
+    updateProductPrice: async (req, res, next) => {
+        try {
+            let userId = req.decoded._id;
+            let { productPrice, id } = req.body;
+            let data = await productSchema.findOneAndUpdate({
+                userId,
+                _id: id
+            }, {
+                $set: {
+                    productPrice
+                }
+            }, { new: true}).lean();
+            return res.send({
+                code: 200,
+                data: data,
+                message: "product price updated successfully!!",
+                error: null
+            })
+        } catch (err) {
+            next(err);
+        }
     }
 }

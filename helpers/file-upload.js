@@ -23,8 +23,7 @@ exports.upload = multer({
     fileFilter: function (req, file, callback) {
         let ext = path.extname(file.originalname).toLowerCase();
         if (
-            ext !== '.jpg' && ext !== '.jpeg' &&
-            ext !== '.pdf' && ext !== '.png'
+            ext !== '.jpg' && ext !== '.jpeg' && ext !== '.png'
         ) {
             return callback(new Error('Only images are allowed'))
         }

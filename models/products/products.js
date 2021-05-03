@@ -15,6 +15,10 @@ const productSchema = new Schema({
         type: String,
         default: ""
     },
+    sku: {
+        type: String,
+        default: ""
+    },
     city: {
         type: String,
         default: ""
@@ -66,11 +70,15 @@ const productSchema = new Schema({
     },
     availableUnits: {
         type: Number,
-        default: ""
+        default: 0
+    },
+    soldUnit: {
+        type: Number,
+        default: 0
     },
     unitCount: {
         type: Number,
-        default: ""
+        default: 0
     },
     mrp: {
         type: String,
@@ -92,6 +100,10 @@ const productSchema = new Schema({
         type: String,
         default: ""
     },
+    commission: {
+        type: Number,
+        default: ""
+    },
     isApproved: {
         type: Boolean,
         default: false
@@ -111,7 +123,7 @@ const productSchema = new Schema({
     isDeleted: {
         type: Boolean,
         default: false
-    }
+    },
 }, { timestamps: true});
 
 productSchema.index({ city: 1 });
