@@ -14,7 +14,8 @@ module.exports = {
             let panImgLink = req.files ? req.files[1] : '';
             let { name, hasGST, taxState, gstin, pan } = await storeValidator.addSellerGstDetails().validateAsync(req.body);
             pan = await crypto.staticEncrypter(pan);
-            gstin = await crypto.staticEncrypter(gstin);
+            if (gstin)
+                gstin = await crypto.staticEncrypter(gstin);
             const sellerData = await usersSchema.findOneAndUpdate({
                 _id: userId
             }, {
