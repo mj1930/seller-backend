@@ -15,10 +15,6 @@ const productSchema = new Schema({
         type: String,
         default: ""
     },
-    sku: {
-        type: String,
-        default: ""
-    },
     city: {
         type: String,
         default: ""
@@ -57,22 +53,22 @@ const productSchema = new Schema({
         default: ""
     },
     color: {
-        type: Array,
-        default: []
-    },
-    size: {
-        type: Array,
-        default: []
-    },
-    productPrice: {
         type: String,
         default: ""
+    },
+    size: {
+        type: String,
+        default: ""
+    },
+    productPrice: {
+        type: Number,
+        default: 0
     },
     availableUnits: {
         type: Number,
         default: 0
     },
-    soldUnit: {
+    rating: {
         type: Number,
         default: 0
     },
@@ -81,8 +77,8 @@ const productSchema = new Schema({
         default: 0
     },
     mrp: {
-        type: String,
-        default: ""
+        type: Number,
+        default: 0
     },
     description: {
         type: String,
@@ -100,10 +96,6 @@ const productSchema = new Schema({
         type: String,
         default: ""
     },
-    commission: {
-        type: Number,
-        default: ""
-    },
     isApproved: {
         type: Boolean,
         default: false
@@ -112,18 +104,10 @@ const productSchema = new Schema({
         type: String,
         default: ""
     },
-    hsn: {
-        type: String,
-        default: ""
-    },
-    model: {
-        type: String,
-        default: ""
-    },
     isDeleted: {
         type: Boolean,
         default: false
-    },
+    }
 }, { timestamps: true});
 
 productSchema.index({ city: 1 });

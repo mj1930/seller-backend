@@ -416,13 +416,14 @@ module.exports = {
     updateProductPrice: async (req, res, next) => {
         try {
             let userId = req.decoded._id;
-            let { productPrice, id } = req.body;
+            let { productPrice, id, availUnits } = req.body;
             let data = await productSchema.findOneAndUpdate({
                 userId,
                 _id: id
             }, {
                 $set: {
-                    productPrice
+                    productPrice,
+                    availableUnits: availUnits
                 }
             }, { new: true}).lean();
             return res.send({
