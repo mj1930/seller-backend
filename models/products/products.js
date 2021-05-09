@@ -68,11 +68,19 @@ const productSchema = new Schema({
         type: Number,
         default: 0
     },
+    soldUnit: {
+        type: Number,
+        default: 0
+    },
     rating: {
         type: Number,
         default: 0
     },
     unitCount: {
+        type: Number,
+        default: 0
+    },
+    commission: {
         type: Number,
         default: 0
     },
