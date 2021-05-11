@@ -53,12 +53,12 @@ const productSchema = new Schema({
         default: ""
     },
     color: {
-        type: String,
-        default: ""
+        type: Array,
+        default: []
     },
     size: {
-        type: String,
-        default: ""
+        type: Array,
+        default: []
     },
     productPrice: {
         type: Number,
@@ -101,6 +101,10 @@ const productSchema = new Schema({
         ref: 'subCategory'
     },
     heading: {
+        type: String,
+        default: ""
+    },
+    sku: {
         type: String,
         default: ""
     },

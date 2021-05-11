@@ -9,8 +9,8 @@
 		"lintFull": "eslint \"./**/*.js\"",
 		"lintFix": "eslint --fix './**/*.js'",
 		"prestart": "npm install",
-		"dev": "nodemon service.js",
-		"start": "node service.js"
+		"dev": "nodemon seller-service.js",
+		"start": "node seller-service.js"
 	},
 	"author": "Seller App",
 	"license": "ISC",

@@ -309,7 +309,7 @@ module.exports = {
                 brand, availableUnits, dimensions,
                 weight, categoryId, subCategoryId, color,
                 size, productPrice, mrp, description,
-                heading, hsn, model
+                heading, hsn, model, sku
             } = await productValidator.addProductNew().validateAsync(req.body);
             let userId = req.decoded._id;
             let isProductPresent = await productSchema.countDocuments({_id: userId, itemName, barcode});
@@ -328,6 +328,7 @@ module.exports = {
                 model,
                 itemName,
                 city,
+                sku,
                 countryOfOrigin,
                 availableUnits,
                 dimensions,
@@ -362,7 +363,7 @@ module.exports = {
                 brand, availableUnits, dimensions,
                 weight, categoryId, subCategoryId, color,
                 size, productPrice, mrp, description,
-                heading, hsn, model
+                heading, hsn, sku, model
             } = await productValidator.editProductNew().validateAsync(req.body);
             let userId = req.decoded._id;
             let isProductPresent = await productSchema.countDocuments({_id: userId, itemName, barcode});
@@ -387,6 +388,7 @@ module.exports = {
                     city,
                     countryOfOrigin,
                     availableUnits,
+                    sku,
                     dimensions,
                     brand,
                     weight,
