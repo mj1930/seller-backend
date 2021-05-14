@@ -171,10 +171,10 @@ module.exports = {
             let imagesData = await productSchema.findOneAndUpdate({
                 _id: id
             }, {
-                $set: {
+                $addToSet: {
                     productImg: files
                 }
-            }, {new: true});
+            }, {new: true, upsert: true});
             return res.json({
                 code: 200,
                 data: imagesData,

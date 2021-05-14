@@ -10,8 +10,8 @@ exports.filterOrders = () => {
 
 exports.listOrder = () => {
     return Joi.object().keys({
-        skip:  Joi.number().required().trim(),
-        limit: Joi.number().required().trim()
+        skip:  Joi.number().required(),
+        limit: Joi.number().required()
     });
 };
 

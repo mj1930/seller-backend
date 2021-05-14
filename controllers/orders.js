@@ -7,9 +7,9 @@ module.exports = {
     listOrders: async (req, res, next) => {
         try {
             let userId = req.decoded._id;
-            let { skip, limit } = await orderValidator.listOrders().validateAsync(req.body);
+            let { skip, limit } = await orderValidator.listOrder().validateAsync(req.body);
             let orders = await orderSchema.find({
-                _id: userId
+                "products.sellerId": userId
             })
             .skip(skip)
             .limit(limit)
