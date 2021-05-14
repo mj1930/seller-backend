@@ -309,7 +309,7 @@ module.exports = {
                 brand, availableUnits, dimensions,
                 weight, categoryId, subCategoryId, color,
                 size, productPrice, mrp, description,
-                heading, hsn, model, sku
+                heading, hsn, model, productImg, sku
             } = await productValidator.addProductNew().validateAsync(req.body);
             let userId = req.decoded._id;
             let isProductPresent = await productSchema.countDocuments({_id: userId, itemName, barcode});
@@ -329,6 +329,7 @@ module.exports = {
                 itemName,
                 city,
                 sku,
+                productImg,
                 countryOfOrigin,
                 availableUnits,
                 dimensions,

@@ -87,7 +87,8 @@ exports.addProductNew = () => {
         mrp: Joi.string().optional().allow('').trim(),
         description: Joi.string().optional().allow('').trim(),
         heading: Joi.string().optional().allow('').trim(),
-        availableUnits: Joi.number().required()
+        availableUnits: Joi.number().required(),
+        productImg: Joi.array().optional()
     });
 };
 

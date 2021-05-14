@@ -15,6 +15,14 @@ const productSchema = new Schema({
         type: String,
         default: ""
     },
+    hsn: {
+        type: String,
+        default: ""
+    },
+    model: {
+        type: String,
+        default: ""
+    },
     city: {
         type: String,
         default: ""
