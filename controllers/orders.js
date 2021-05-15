@@ -118,12 +118,8 @@ module.exports = {
                     }
                 ]
             }, {
-                mode: 1,
-                createdAt: 1,
                 totalAmnt: 1,
-                orderStatus: 1,
-                paymentMode: 1,
-                address: 1,
+                createdAt: 1,
                 products: {
                     $elemMatch: {
                         sellerId: userId
