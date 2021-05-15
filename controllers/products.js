@@ -350,12 +350,12 @@ module.exports = {
                 heading, hsn, model, productImg, sku, vin,isApproved
             } = await productValidator.addProductNew().validateAsync(req.body);
             let userId = req.decoded._id;
-            let isProductPresent = await productSchema.countDocuments({_id: userId, itemName, barcode});
+            let isProductPresent = await productSchema.countDocuments({$and: [{ userId}, {vin}]});
             if (isProductPresent) {
                 return res.json({
                     code: 200,
                     data: {},
-                    message: "product with details already present!!!",
+                    message: "Product with details already present!!!",
                     error: null
                 });
             }
