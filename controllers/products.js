@@ -236,15 +236,53 @@ module.exports = {
 
     filterProducts: async (req, res, next) => {
         try {
+            let userId = req.decoded._id;
             let allProducts = [];
             let { skip, limit, status } = await productValidator.filterProducts().validateAsync(req.body);
-            allProducts = await productSchema.find({
-                isDeleted: false,
-                isApproved: status
-            })
-            .skip(skip)
-            .limit(limit)
-            .lean();
+            if (status == 'all') { 
+                allProducts = await productSchema.find({
+                    userId,
+                    isDeleted: false
+                })
+                .skip(skip)
+                .limit(limit)
+                .lean();   
+            } else {
+                if (status == 'active') {
+                    allProducts = await productSchema.find({
+                        $and: [
+                            {userId},
+                            {isDeleted: false},
+                            {isApproved: true}
+                        ]
+                    })
+                    .skip(skip)
+                    .limit(limit)
+                    .lean();
+                } else if (status == 'blocked') {
+                    allProducts = await productSchema.find({
+                        $and: [
+                            {userId},
+                            {isDeleted: false},
+                            {isApproved: false}
+                        ]
+                    })
+                    .skip(skip)
+                    .limit(limit)
+                    .lean();
+                } else {
+                    allProducts = await productSchema.find({
+                        $and: [
+                            {userId},
+                            {isDeleted: false},
+                            {availableUnits: 0}
+                        ]
+                    })
+                    .skip(skip)
+                    .limit(limit)
+                    .lean();
+                }
+            }
             return res.json({
                 code: 200,
                 data: allProducts,
@@ -309,7 +347,7 @@ module.exports = {
                 brand, availableUnits, dimensions,
                 weight, categoryId, subCategoryId, color,
                 size, productPrice, mrp, description,
-                heading, hsn, model, productImg, sku
+                heading, hsn, model, productImg, sku, vin,isApproved
             } = await productValidator.addProductNew().validateAsync(req.body);
             let userId = req.decoded._id;
             let isProductPresent = await productSchema.countDocuments({_id: userId, itemName, barcode});
@@ -321,11 +359,15 @@ module.exports = {
                     error: null
                 });
             }
+            if (!isApproved) {
+                isApproved = false;
+            }
             const productData = await productSchema.create({
                 barcode,
                 userId,
                 hsn,
                 model,
+                isApproved,
                 itemName,
                 city,
                 sku,
@@ -339,6 +381,7 @@ module.exports = {
                 subCategoryId,
                 color,
                 size,
+                vin,
                 productPrice,
                 mrp,
                 description,
@@ -364,7 +407,7 @@ module.exports = {
                 brand, availableUnits, dimensions,
                 weight, categoryId, subCategoryId, color,
                 size, productPrice, mrp, description,
-                heading, hsn, sku, model
+                heading, hsn, sku, model, vin
             } = await productValidator.editProductNew().validateAsync(req.body);
             let userId = req.decoded._id;
             let isProductPresent = await productSchema.countDocuments({_id: userId, itemName, barcode});
@@ -383,6 +426,7 @@ module.exports = {
                 $set: {
                     barcode,
                     userId,
+                    vin,
                     hsn,
                     model,
                     itemName,

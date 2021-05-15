@@ -10,7 +10,7 @@ router.post('/add-product-images', authorize, upload.array('files', 5), productC
 router.post('/add-product-desc-info', authorize, productCtrl.addProductDesc);
 router.post('/get-all-products', authorize, productCtrl.listAllProduct);
 router.post('/get-all-products-admin', authorize, productCtrl.listAllProductAdmin);
-router.post('/filter-products', productCtrl.filterProducts);
+router.post('/filter-products', authorize, productCtrl.filterProducts);
 router.get('/search-products', productCtrl.searchFromProducts);
 router.get('/get-product-details/:productId', productCtrl.getProductDetails);
 router.post('/v2/add-product', authorize, productCtrl.addProductNew);

@@ -57,7 +57,7 @@ exports.filterProducts = () => {
     return Joi.object().keys({
         skip: Joi.number().required(),
         limit: Joi.number().required(),
-        status: Joi.boolean().required()
+        status: Joi.string().required()
     });
 };
 
@@ -88,7 +88,9 @@ exports.addProductNew = () => {
         description: Joi.string().optional().allow('').trim(),
         heading: Joi.string().optional().allow('').trim(),
         availableUnits: Joi.number().required(),
-        productImg: Joi.array().optional()
+        productImg: Joi.array().optional(),
+        vin: Joi.string().required().trim(),
+        isApproved: Joi.boolean().optional()
     });
 };
 
@@ -97,6 +99,7 @@ exports.editProductNew = () => {
         productId: Joi.string().required().trim(),
         barcode: Joi.string().required().trim(),
         hsn: Joi.string().required().trim(),
+        vin: Joi.string().required().trim(),
         model: Joi.string().required().allow('').trim(),
         sku: Joi.string().required().allow('').trim(),
         itemName: Joi.string().required().trim(),
@@ -113,6 +116,7 @@ exports.editProductNew = () => {
         mrp: Joi.string().optional().allow('').trim(),
         description: Joi.string().optional().allow('').trim(),
         heading: Joi.string().optional().allow('').trim(),
-        availableUnits: Joi.number().required()
+        availableUnits: Joi.number().required(),
+        productImg: Joi.array().optional()
     });
 }
