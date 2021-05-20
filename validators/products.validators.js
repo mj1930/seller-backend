@@ -90,6 +90,7 @@ exports.addProductNew = () => {
         availableUnits: Joi.number().required(),
         productImg: Joi.array().optional(),
         vin: Joi.string().required().trim(),
+        sellerName: Joi.string().required().trim(),
         isApproved: Joi.boolean().optional()
     });
 };

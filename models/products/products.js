@@ -11,6 +11,10 @@ const productSchema = new Schema({
         ref: 'sellers',
         default: null
     },
+    sellerName: {
+        type: String,
+        default: ""
+    },
     itemName: {
         type: String,
         default: ""
