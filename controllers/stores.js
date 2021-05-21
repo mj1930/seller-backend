@@ -10,8 +10,6 @@ module.exports = {
     addSellerGstDetails: async (req, res, next) => {
         try {
             let userId = req.decoded._id;
-            let gstImgLink = req.files ? req.files[0] : '';
-            let panImgLink = req.files ? req.files[1] : '';
             let { name, hasGST, taxState, gstin, pan } = await storeValidator.addSellerGstDetails().validateAsync(req.body);
             pan = await crypto.staticEncrypter(pan);
             if (gstin)
@@ -24,21 +22,14 @@ module.exports = {
                     hasGST,
                     taxState,
                     gstin,
-                    pan,
-                    gstImgLink,
-                    panImgLink
+                    pan
                 }
             }, {new : true});
-            const accessToken = await jwtService.generateAccessToken({
-                _id: sellerData._id,
-                name: sellerData.name
-            });
             if (sellerData) {
                 return res.json({
                     code: 200,
                     message: 'Details updated !!',
                     data: sellerData,
-                    accessToken,
                     error: null
                 });
             } else {
@@ -69,16 +60,11 @@ module.exports = {
                 userId: sellerData._id,
                 storename
             });
-            const accessToken = await jwtService.generateAccessToken({
-                _id: sellerData._id,
-                name: sellerData.name
-            });
             if (sellerData && storeData) {
                 return res.json({
                     code: 200,
                     message: 'Details updated !!',
                     data: sellerData,
-                    accessToken,
                     error: null
                 });
             } else {
@@ -110,16 +96,11 @@ module.exports = {
                     cancelChqImg
                 }
             }, {new : true});
-            const accessToken = await jwtService.generateAccessToken({
-                _id: sellerData._id,
-                name: sellerData.name
-            });
             if (sellerData) {
                 return res.json({
                     code: 200,
                     message: 'Details updated !!',
                     data: sellerData,
-                    accessToken,
                     error: null
                 });
             } else {
@@ -137,14 +118,61 @@ module.exports = {
 
     verifyStoreName: async (req, res, next) => {
         try {
-            let { storename } = await storeValidator.verifyUsername().validateAsync(req.query);
+            let { storeName } = await storeValidator.verifyUsername().validateAsync(req.body);
             let count = await storeSchema.countDocuments({
-                storename
+                storename: new RegExp(storeName, 'i')
             });
             return res.json({
                 code: 200,
                 count,
                 message: "count returned",
+                error: null
+            });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    addImages: async (req, res, next) => {
+        try {
+            let userId = req.decoded._id;
+            let gstImgLink = req.files ? req.files[0].location : '';
+            let panImgLink = req.files ? req.files[1].location : '';
+            const sellerData = await usersSchema.findOneAndUpdate({
+                _id: userId
+            }, {
+                $set: {
+                    gstImgLink,
+                    panImgLink
+                }
+            }, {new : true});
+            return res.json({
+                code: 200,
+                dat: sellerData,
+                message: "image added !!!",
+                error: null
+            });
+        } catch (err) {
+            next(err);
+        }
+    
+    },
+
+    addBankImage: async (req, res, next) => {
+        try {
+            let userId = req.decoded._id;
+            let cancelChqImg = req.file ? req.file.location : '';
+            const sellerData = await usersSchema.findOneAndUpdate({
+                _id: userId
+            }, {
+                $set: {
+                    cancelChqImg
+                }
+            }, {new : true});
+            return res.json({
+                code: 200,
+                dat: sellerData,
+                message: "image added !!!",
                 error: null
             });
         } catch (err) {
