@@ -9,5 +9,6 @@ router.post('/update-order', authorize, orderCtrl.updateOrderStatus);
 router.post('/sort-order', authorize, orderCtrl.sortOrder);
 router.post('/search-product', authorize, orderCtrl.searchOrdersByTerm);
 router.post('/search-product-id', authorize, orderCtrl.searchOrdersByOrderId);
+router.get('/print-invoice/:id', authorize, orderCtrl.printInvoice);
 
 module.exports = router;
