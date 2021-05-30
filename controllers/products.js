@@ -304,6 +304,7 @@ module.exports = {
                 ]
             }).lean();
             if (searchedProducts && searchedProducts.length > 0) {
+                searchedProducts = _.uniq(searchedProducts, x => x.vin);
                 return res.json({
                     code: 200,
                     data: searchedProducts,
